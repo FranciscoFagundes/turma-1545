@@ -138,9 +138,11 @@ const showTasks = async() => {
 }
 
 
-const changeStatus = (id) => {
+const changeStatus = async (id) => {
 
-    let tasksList = JSON.parse(localStorage.getItem('lista')) || [];
+    // let tasksList = JSON.parse(localStorage.getItem('lista')) || [];
+
+    let tasksList = listFromApi;
 
     tasksList = tasksList.map( tarefa => {
         if(tarefa.id === id){
@@ -149,7 +151,11 @@ const changeStatus = (id) => {
         return tarefa;
     })
 
-    localStorage.setItem('lista', JSON.stringify(tasksList));
+    listFromApi = tasksList;
+
+     await saveTasks();
+
+    // localStorage.setItem('lista', JSON.stringify(tasksList));
     showTasks();
    
 }
